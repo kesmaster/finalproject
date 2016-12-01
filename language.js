@@ -2,7 +2,7 @@
 var change = 0,
     boundary = 0;
 
-var width = 960,
+var width = 1125,
     height = 1100;
 
 var formatNumber = d3.format(",d");
