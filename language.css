@@ -1,53 +1,54 @@
 .axis path,
 .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-  cursor: pointer;
+    fill: none;
+  
+    shape-rendering: crispEdges;
+    cursor: pointer;
 }
 
 .mesh {
-		fill: none;
-  		stroke: #000;
-  		stroke-width: 1px;
-  		stroke-linejoin: round;
+    fill: none;
+  		
+    stroke-width: 1px;
+    stroke-linejoin: round;
 	}
 
 .dot {
-  stroke: #000;
+    stroke: #f0f0f0;
 }
 
 .xAxis{
     transform: translate(0px, 0px) rotate(90);
 }
 
+
 /* Tooltip container */
 .tooltip {
-      position: absolute;
-      display: inline-block;
-      width: auto;
-      height: auto;
-      font: bold 12px/30px Georgia, serif;
-      border-radius: 3px;
-      line-height: 20px;
-      padding: 10px;
-      pointer-events: none;
-      color: rgb(255, 255, 255);
-      background: rgb(113, 157, 171);
-      text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    position: absolute;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    font: bold 12px/30px Verdana, serif;
+    border-radius: 3px;
+    line-height: 20px;
+    padding: 10px;
+    pointer-events: none;
+    color: rgb(255, 255, 255);
+    background: rgb(113, 157, 171);
+    text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
+    box-shadow: 0px 7px 14px 0px rgba(0,0,0,0.3);
 }
  
 .tooltip:after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-width: ;
-      border-style: ;
-      border-color: transparent transparent transparent transparent;
-      top: ;
-      left: ;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: ;
+    border-style: ;
+    border-color: transparent transparent transparent transparent;
+    top: ;
+    left: ;
 }
 
 .tooltip .tooltiptext {
@@ -95,24 +96,28 @@
 
 
 svg {
-  font: bold 14px/28px Georgia, serif;
-  stroke: #000;
+    font: bold 14px/28px Verdana, serif;
+    stroke: #000;
+    display: block;
+    margin-left: auto;
+    float: right;
+    position: fixed;
 }
 
 
 .key path {
-  display: none;
+    display: none;
 }
 
 .key line {
-  stroke: #000;
-  shape-rendering: crispEdges;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 
 .county-border {
-  fill: none;
-  stroke: #f00;
-  stroke-opacity: .3;
+    fill: none;
+    stroke: #f00;
+    stroke-opacity: .3;
 }
 
 /*new code for button for switching between generations*/
@@ -207,14 +212,6 @@ svg {
 
 
 
-/*center*/
-svg{
-    display: block;
-    margin-left: auto;
-
-}
-
-
 
 
 
@@ -222,6 +219,7 @@ svg{
 .title{
     position: absolute;
     font-family:inherit;
+    box-shadow: 0px 5px 14px 0px rgba(0,0,0,0.4);
     /*width: 100px;
     height: 30px; */
 }
@@ -230,42 +228,42 @@ svg{
 
 /* tab info */
 
-
-body {
-  font: 18px/1.5 Georgia, serif;
-    
-  /*padding: 1rem;*/
-  margin: 0px 0px 0px 0px;
-  background-color: lightcyan;
-}
+body,html {
+font: 18px/1.5 sans-serif, serif;
+background-color: lightcyan;
+min-width: 1235px;
+min-height: 1200px;
+position: relative;
+overflow: scroll;}
 
 dt {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 dl {
-  margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 #bug:target {
-  outline: 4px solid #ccc;
+    outline: 4px solid #ccc;
 }
 
 /**
  * tab panel widget
  */
 .tabPanel-widget {
-  position: absolute;  /* containing block for headings (top:0) */
-  background: #999;
-  transform: translate(0px, 100px);
+    position: absolute;  /* containing block for headings (top:0) */
+    background: #999;
+    transform: translate(0px, 100px);
+    box-shadow: 0px 5px 14px 0px rgba(0,0,0,0.3);
 }
 
 /**
  * because labels come first in source order - we use z-index to move them in front of the headings
  */
 .tabPanel-widget > label {
-  position: absolute;
-  z-index: 1;
+    position: absolute;
+    z-index: 1;
 }
 
 /**
@@ -277,26 +275,26 @@ dl {
 
 .tabPanel-widget > label,
 .tabPanel-widget > h2 {
-  font-size: 1.1em;
-  width: 9em;
-  height: 2em;
-  line-height: 2em;
-  outline: 0;
+    font-size: 1.1em;
+    width: 9em;
+    height: 2em;
+    line-height: 2em;
+    outline: 0;
 }
 
 /**
  * position:relative is for the markers (the down arrow in tabs)
  */
 .tabPanel-widget > h2 {
-  position: relative;
-  margin: 0;
-  text-align: center;
-  background: #999;
-  color: #fff;
+    position: relative;
+    margin: 0;
+    text-align: center;
+    background: #999;
+    color: #fff;
 }
 
 .tabPanel-widget > label {
-  border-right: 1px solid #fff;  
+    border-right: 1px solid #fff;  
 }
 
 /**
@@ -305,8 +303,8 @@ dl {
 .tabPanel-widget input,
 .tabPanel-widget > label ~ label,
 .tabPanel-widget > h2 ~ h2 {
-  position: absolute;
-  top: 0;
+    position: absolute;
+    top: 0;
 }
 
 
@@ -317,17 +315,17 @@ dl {
 
 .tabPanel-widget label:nth-child(1),
 .tabPanel-widget h2:nth-child(3) {
-  left: 0em;
+    left: 0em;
 }
 
 .tabPanel-widget label:nth-child(5),
 .tabPanel-widget h2:nth-child(7) {
-  left: 9em;
+    left: 9em;
 }
 
 .tabPanel-widget label:nth-child(9),
 .tabPanel-widget h2:nth-child(11) {
-  left: 18em;
+    left: 18em;
 }
 
 /**
@@ -335,73 +333,73 @@ dl {
  * https://developer.yahoo.com/blogs/ydn/clip-hidden-content-better-accessibility-53456.html
  */
 .tabPanel-widget input + h2 + div {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding:0 !important;
-  border:0 !important;
-  height: 1px !important; 
-  width: 1px !important; 
-  overflow: hidden;
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding:0 !important;
+    border:0 !important;
+    height: 1px !important; 
+    width: 1px !important; 
+    overflow: hidden;
 }
 /**
  * we reveal a panel depending on which control is selected 
  */
 .tabPanel-widget input:checked + h2 + div {
-  position: static !important;
-  padding: 1em !important;
-  height: auto !important; 
-  width: auto !important; 
+    position: static !important;
+    padding: 1em !important;
+    height: auto !important; 
+    width: auto !important; 
 }
 
 /**
  * shows a hand cursor only to pointing device users
  */
 .tabPanel-widget label:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .tabPanel-widget > div {
-  background: #f0f0f0;
-  padding: 1em;
+    background: #f0f0f0;
+    padding: 1em;
 }
 
 /**
  * we hide radio buttons and also remove them from the flow
  */
 .tabPanel-widget input[name="tabs"] {
-  opacity: 0;
-  position: absolute;
+    opacity: 0;
+    position: absolute;
 }
 
 /**
  * reset of the above within the tab panel (for pointing-device users)
  */
 .tabPanel-widget:hover h2 {
-  outline: none !important;
+    outline: none !important;
 }
 
 /**
  * visual cue of the selection
  */
 .tabPanel-widget input[name="tabs"]:checked + h2 {
-  background: #333;
+    background: #333;
 }
 
 /**
  * the marker for tabs (down arrow)
  */
 .tabPanel-widget input[name="tabs"]:checked + h2:after {
-  content: '';
-  margin: auto;
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #333;
+    content: '';
+    margin: auto;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #333;
 }
 
 /**
@@ -410,30 +408,38 @@ dl {
 @media screen and (max-width: 45em) {
   
   /* hide unecessary label/control pairs */
-  .tabPanel-widget label,
-  .tabPanel-widget input[name="tabs"] {
+    .tabPanel-widget label,
+    .tabPanel-widget input[name="tabs"] {
     display: none;
-  }
+}
   
   /* reveal all panels */
-  .tabPanel-widget > input + h2 + div {
+.tabPanel-widget > input + h2 + div {
     display: block !important;
     position: static !important;
     padding: 1em !important;
     height: auto !important; 
     width: auto !important; 
-  }
+}
   
   /* "unstyle" the heading */
-  .tabPanel-widget h2 {
+.tabPanel-widget h2 {
     width: auto;
     position: static !important;
     background: #999 !important;
-  }
+}
   
   /* "kill" the marker */
   .tabPanel-widget h2:after {
     display: none !important;
-  }
+}
+
 
 }
+
+#rightside{
+            position: absolute;
+            right: 0;
+            width: 650px;
+            height: 1000px;
+        }

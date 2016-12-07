@@ -2,7 +2,7 @@
 var change = 0,
     boundary = 0;
 
-var width = 960,
+var width = 930,
     height = 1100;
 
 var formatNumber = d3.format(",d");
@@ -12,37 +12,37 @@ var projection = d3.geo.albers()
     .rotate([-15, 2, 0])
     .parallels([38, 69])
     .scale(1100)
-    .translate([width-400, height-640]);
+    .translate([width-450, height-640]);
 
 var path = d3.geo.path()
     .projection(projection);
     
 var color = d3.scale.threshold()
-    .domain([5,10,20,40,60,80,100,120,140])
+    .domain([5,10,20,40,60,80,110,130,150])
 //.domain([1, 5, 10,15,20,25,30,35,40,45, 50, 55, 60])
-    .range(["#52ff33", 
-            "#63FF6B", 
+    .range(["#00cc0a", 
+            "#1aff25", 
             "#63FF9B", 
             "#63FFCB", 
             "#63FFFB", 
             "#63E3FF",
             "#63A3FF", 
             "#6373FF", 
-            "#6363FF",
+            "#4d4dff",
            ]);
 
 var color2 = d3.scale.threshold()
-    .domain([00, 5, 10,15,20,30, 40, 50, 60])
-
-    .range(["#52ff33", 
-            "#63FF6B", 
+    .domain([00, 5, 10, 15 ,20 ,30, 40, 55, 70])
+ 
+    .range(["#00cc0a", 
+            "#1aff25", 
             "#63FF9B", 
             "#63FFCB", 
             "#63FFFB", 
             "#63E3FF",
             "#63A3FF", 
             "#6373FF", 
-            "#6363FF",
+            "#4d4dff",
            ]);
 
 /*.range(["#6363FF", 
@@ -70,15 +70,18 @@ var xAxis = d3.svg.axis()
     //.tickFormat(function(d) { return d >= 100 ? formatNumber(d) : null; });
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", width + 200)
+    .attr("height", height)
+    .attr("id", "rightside")
+    .attr("overflow-x", "scroll");
 
 
 //svg.selectAll(".key").remove();//remove the old scale
 
 var g = svg.append("g")//recreate the key object
     .attr("class", "key")
-    .attr("transform", "translate(15,150)");
+    .attr("transform", "translate(15,50)");
+    
 
 xAxis = d3.svg.axis()
     .scale(x)
@@ -86,28 +89,6 @@ xAxis = d3.svg.axis()
     .tickSize(13)
     .tickValues(color.domain());
 
-g.call(xAxis).append("text")
-    .attr("class", "caption")
-    .attr("y", -6)
-    .text("Combined % of Secondary Languages")
-    .attr("transform", "translate(0,-10) rotate(0)");
-    
-//redraw new scale
-g.selectAll("rect")
-.data(color.range().map(function(d, i) {
-   //console.log(x.range());
-  return {
-    x0: i ? x(color.domain()[i - 1]) : x.range()[0],   
-    x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
-    z: d
-  };
-}))
-.enter().append("rect")
-.attr("height", 20)
-.attr("x", function(d) { return d.x0; })
-.attr("width", function(d) { return Math.abs(d.x1 - d.x0); })
-.style("fill", function(d) { return d.z; })
-.attr("transform", "translate(8,0) rotate(-270)");
 
 
 d3.json("eu.json", function(error, eu) {
@@ -123,7 +104,7 @@ d3.json("eu.json", function(error, eu) {
      var currScaleData = new Object();
      var ScaleData = new Object();
      var langData = new Object();
-
+     var gen;
      var all = true;
      var older = false;
      var middle = false;
@@ -149,12 +130,13 @@ d3.json("eu.json", function(error, eu) {
     .append("title");
     
   var countrySHAPE  = topojson.feature(eu, eu.objects.world);
- var lang;
+  var lang;
     
   // Draw county borders.
    boundaries = svg.append("path")
       .datum(topojson.mesh(eu, eu.objects.world))
       .attr("class", "mesh")
+   .style('stroke','#666666')
       .attr("d", path);
     //enable tooltip
     
@@ -163,8 +145,27 @@ d3.json("eu.json", function(error, eu) {
     quantifyData(bigHash);
     var langName= "English"
     getLang(langName);
-    
-    
+    changeGenName();
+function changeGenName(){
+     
+        if (all)
+                {
+                    gen = " All Generations";
+                }
+            else if (older)
+                {
+                    gen = " Older Generation";
+                }
+            else if (middle)
+                {
+                    gen = " Middle Generation";
+                }
+            else if(youngest)
+                {
+                    gen = " Youngest Generation";
+                }
+    changeScale();
+}
     function changeScale(){
         
         if(langState){
@@ -175,7 +176,7 @@ d3.json("eu.json", function(error, eu) {
             
             g = svg.append("g")//recreate the key object
                 .attr("class", "key")
-                .attr("transform", "translate(15,150)");
+                .attr("transform", "translate(40,50)");
             
               xAxis = d3.svg.axis()
                 .scale(x)
@@ -188,7 +189,7 @@ d3.json("eu.json", function(error, eu) {
             g.call(xAxis).append("text")
                 .attr("class", "caption")
                 .attr("y", -6)
-                .text(lang+" Language Score")
+                .text(lang + gen + " Language Score")
                 .attr("transform", "translate(0,-10) rotate(0)");
             
             //redraw new scale
@@ -217,7 +218,7 @@ d3.json("eu.json", function(error, eu) {
 
             g = svg.append("g")//recreate the key object
                 .attr("class", "key")
-                .attr("transform", "translate(15,150)");
+                .attr("transform", "translate(15,50)");
 
               xAxis = d3.svg.axis()
                 .scale(x)
@@ -230,7 +231,7 @@ d3.json("eu.json", function(error, eu) {
             g.call(xAxis).append("text")
                 .attr("class", "caption")
                 .attr("y", -6)
-                .text("Secondary Language Score")
+                .text(gen + " Secondary Language Score")
                 .attr("transform", "translate(0,-10) rotate(0)");
 
             //redraw new scale
@@ -260,12 +261,13 @@ d3.json("eu.json", function(error, eu) {
             .data(topojson.feature(eu, eu.objects.world).features)
             .enter()
             .append('path')
+            .style('stroke','#666666')
             .attr('d', path)
             .style('fill',
                 function(d){ 
                   if(langState){
                       
-                      if(d.properties.allEnglish == undefined){return "#d3d3d3";
+                      if(d.properties.allEnglish == 1000){return "#d3d3d3";
                                                                
                         }else{
                             if(all){ 
@@ -488,7 +490,7 @@ d3.json("eu.json", function(error, eu) {
                               }
                         }
                   }else{
-                      if(d.properties.allBulgarian == undefined ){return "#d3d3d3";}
+                      if(d.properties.allBulgarian == 1000 ){return "#e6e6e6";}
                       if(all){
                         
                           return( color(d.properties.allCroatian+d.properties.allCzech+d.properties.allDanish+d.properties.allDutch+d.properties.allEnglish+d.properties.allEstonian+d.properties.allFinnish+d.properties.allFrench+d.properties.allGerman+d.properties.allGreek+d.properties.allHungarian+d.properties.allIrish+d.properties.allItalian+d.properties.allLatvian+d.properties.allLithuanian+d.properties.allLuxembourgish+d.properties.allMaltese+d.properties.allPolish+d.properties.allPortugese+d.properties.allRomanian+d.properties.allSlovak+d.properties.allSlovenian+d.properties.allSpanish+d.properties.allSwedish+d.properties.allRussian+d.properties.allCatalan));
@@ -514,13 +516,13 @@ d3.json("eu.json", function(error, eu) {
         .on("mouseover", function(d) {
           currentState = this;
           chooseData(bigHash[d.properties.NAME],d.properties.NAME);
-          if(d.properties.allEnglish != undefined){
-            d3.select(this).style('fill-opacity', 0.8);
+          if(d.properties.allEnglish != 1000){
+            d3.select(this).style('fill-opacity', 0.7);
           }
 
       })    
         .on("mousemove", function (d) {
-                        if(d.properties.allEnglish == undefined){
+                        if(d.properties.allEnglish == 1000){
                             console.log("not in eu");
                         }else if( currentState = this) {
                             tooltip.transition()
@@ -582,7 +584,7 @@ d3.json("eu.json", function(error, eu) {
     function getVal(d){
         var scaleHere = ScaleData[d.properties.NAME];
         console.log(color(scaleHere));
-        if(scaleHere!=undefined){
+        if(scaleHere!=1000){
         return scaleHere;}
         else{return 1;}
     }
@@ -868,16 +870,16 @@ d3.json("eu.json", function(error, eu) {
     filterQuantity(quantityData);
     
     document.getElementById("buttonAll").onclick = 
-        function(){ all = true; older = false; middle = false; youngest = false; filterQuantity(quantityData); drawColors();};
+        function(){ all = true; older = false; middle = false; youngest = false; changeGenName();filterQuantity(quantityData); drawColors();};
     
     document.getElementById("buttonOld").onclick = 
-        function(){all = false; older = true; middle = false; youngest = false;filterQuantity(quantityData); drawColors();};
+        function(){all = false; older = true; middle = false; youngest = false;changeGenName();filterQuantity(quantityData); drawColors();};
     
     document.getElementById("buttonMiddle").onclick = 
-        function(){all = false; older = false; middle = true; youngest = false;filterQuantity(quantityData); drawColors();};
+        function(){all = false; older = false; middle = true; youngest = false; changeGenName();filterQuantity(quantityData); drawColors();};
     
     document.getElementById("buttonYoungest").onclick = 
-        function(){all = false; older = false; middle = false; youngest = true;filterQuantity(quantityData); drawColors();};
+        function(){all = false; older = false; middle = false; youngest = true;changeGenName();filterQuantity(quantityData); drawColors();};
     
     
     document.getElementById("All").onclick = function(){  langState = false;   lang = ""; changeScale(); drawColors();}  
